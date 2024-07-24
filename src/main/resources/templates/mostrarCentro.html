@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html th:fragment="base" xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head th:replace="fragments/head :: head"></head>
+
+
+<body>
+    <header>
+        <!-- navbar -->
+        <div th:replace="fragments/navbar :: navbar"></div>
+    </header>
+
+
+
+    <main>
+        <div class="container my-3">
+            <div class="row">
+                <div class="col-sm-12 col-md-3 col-lg-4 col-xl-4"></div>
+
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card border-primary mb-3 my-3" style="max-width: 18rem;">
+                        <div class="card-header">Centro de Formación</div>
+                        <div class="card-body text-primary">
+                            <h5 class="card-title" th:text="${centro.nombre}"></h5>
+                            <p class="card-text"
+                                th:text="${centro.direccion.tipoVia} + ' '+ ${centro.direccion.nombreVia} + ' ' + ${centro.direccion.numero}">
+                            </p>
+                            <p class="card-text" th:text="${centro.direccion.codigoPostal}"></p>
+                            <p class="card-text" th:text="${centro.direccion.ciudad}"></p>
+                            <a href="#"><button class="btn btn-primary btn-sm">Cursos</button></a>
+                            <a th:href="@{/centros}"><button class="btn btn-success btn-sm">Volver</button></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-3 col-lg-4 col-xl-4"></div>
+            </div>
+
+
+        </div>
+
+
+    </main>
+
+
+
+    <footer>
+        <div th:replace="fragments/footer :: footer"></div>
+    </footer>
+
+    <!-- Bootstrap js -->
+    <script th:replace="fragments/jsbootstrap :: jsbootstrap"></script>
+</body>
+
+</html>
