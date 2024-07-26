@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html th:fragment="base" xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head th:replace="fragments/head :: head"></head>
+
+
+<body>
+  <header>
+    <!-- navbar -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+  </header>
+
+
+
+  <main>
+
+  </main>
+
+
+
+  <footer>
+    <div th:replace="fragments/footer :: footer"></div>
+  </footer>
+
+  <!-- Bootstrap js -->
+  <script th:replace="fragments/jsbootstrap :: jsbootstrap"></script>
+</body>
+
+</html>
