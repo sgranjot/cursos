@@ -42,7 +42,7 @@
                                         </button>
                                     </a>
 
-                                    <a th:href="@{/centros/nuevo/{id}(id=${centro.id})}">
+                                    <a th:href="@{/centros/form/{id}(id=${centro.id})}">
                                         <button type="button" class="btn btn-success btn-sm">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -74,7 +74,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-1 col-lg-1 col-xl-2  bg-white center"></div>
                 <div class="col-sm-12 col-md-10 col-lg-10 col-xl-8  bg-white center">
-                    <a th:href="@{/centros/nuevo/{id}(id=0)}"> <button type="button" class="btn btn-primary">Nuevo Centro</button> </a>
+                    <a th:href="@{/centros/form/{id}(id=0)}"> <button type="button" class="btn btn-primary">Nuevo Centro</button> </a>
                 </div>
             </div>
 

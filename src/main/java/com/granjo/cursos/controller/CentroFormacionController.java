@@ -6,9 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.granjo.cursos.model.CentroFormacion;
+import com.granjo.cursos.dto.CentroFormacionDTO;
 import com.granjo.cursos.service.ICentroFormacionService;
 
 
@@ -27,13 +28,13 @@ public class CentroFormacionController {
         return "centros";
     }
 
-    @GetMapping("/nuevo/{id}")
+    @GetMapping("/form/{id}")
     public String mostrarFormulario(@PathVariable Long id, Model model){
 
-        CentroFormacion centro = new CentroFormacion();
+        CentroFormacionDTO centro = new CentroFormacionDTO();
 
         if(id!=0) {
-            centro = centroService.findCentroById(id).get();
+            centro = centroService.findCentroById(id);
         }
 
         model.addAttribute("title", "Crear Centro de Formación");
@@ -43,8 +44,8 @@ public class CentroFormacionController {
     }
 
     @PostMapping
-    public String crearCentro(CentroFormacion centroFormacion) {
-        centroService.createCentro(centroFormacion);
+    public String crearCentro(CentroFormacionDTO centroFormacionDTO) {
+        centroService.createCentro(centroFormacionDTO);
         return "redirect:/centros";
     }
 
@@ -54,17 +55,17 @@ public class CentroFormacionController {
         return "redirect:/centros";
     }
 
-    @PostMapping("/modificar/{id}")
-    public String modificarCentro(@PathVariable Long id, CentroFormacion centroFormacion, Model model) {
+    @PutMapping("/modificar/{id}")
+    public String modificarCentro(@PathVariable Long id, CentroFormacionDTO centroFormacionDTO, Model model) {
         model.addAttribute("title", "Actualizar datos centro");
-        centroService.updateCentro(id, centroFormacion);
+        centroService.updateCentro(id, centroFormacionDTO);
         return "redirect:/centros";
     }
 
     @GetMapping("/mostrar/{id}")
     public String mostrarCentro(@PathVariable Long id, Model model) {
         model.addAttribute("title", "Datos del centro");
-        model.addAttribute("centro", centroService.findCentroById(id).get());
+        model.addAttribute("centro", centroService.findCentroById(id));
         return "mostrarCentro";
     }
     
