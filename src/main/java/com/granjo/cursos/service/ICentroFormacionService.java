@@ -1,19 +1,18 @@
 package com.granjo.cursos.service;
 
 import java.util.List;
-import java.util.Optional;
 
-import com.granjo.cursos.model.CentroFormacion;
+import com.granjo.cursos.dto.CentroFormacionDTO;
 
 public interface ICentroFormacionService {
 
-    public CentroFormacion createCentro(CentroFormacion centroFormacion);
+    public CentroFormacionDTO createCentro(CentroFormacionDTO centroFormacionDTO);
 
-    public List<CentroFormacion> findAllCentros ();
+    public List<CentroFormacionDTO> findAllCentros ();
     
-    public Optional<CentroFormacion> findCentroById(Long id);
+    public CentroFormacionDTO findCentroById(Long id);
 
-    public CentroFormacion updateCentro(Long id, CentroFormacion centroFormacion);
+    public CentroFormacionDTO updateCentro(Long id, CentroFormacionDTO centroFormacionDTO);
 
     public void deleteCentro(Long id);
 
