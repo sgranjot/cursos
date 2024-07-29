@@ -1,7 +1,6 @@
 package com.granjo.cursos.util;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -9,7 +8,6 @@ public class DtoConverter {
 
     private final ModelMapper modelMapper;
 
-    @Autowired
     public DtoConverter(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
