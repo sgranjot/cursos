@@ -39,24 +39,23 @@ public class CentroFormacionServiceImpl implements ICentroFormacionService {
         log.info("inicio del método CentroFormacionServiceiImpl.createCentro");
 
         CentroFormacion centroFormacion = dtoConverter.convertToEntity(centroFormacionDTO, CentroFormacion.class);
-        CentroFormacion centroCreado;
 
         try {
-            centroCreado = centroFormacionDao.save(centroFormacion);
+            CentroFormacion centroCreado = centroFormacionDao.save(centroFormacion);
             if (centroCreado != null) {
-                log.info("CentroFormacion creado correctamente");
+                log.info("Centro de Formacion creado correctamente");
             } else {
-                log.error("Error al crear CentroFormacion");
-                throw new BadRequestException("Error al crear el CentroFormacion");
+                log.error("Error al crear Centro de Formacion");
+                throw new BadRequestException("Error al crear el Centro de Formacion");
             }
+            return dtoConverter.convertToDto(centroCreado, CentroFormacionDTO.class);
 
         } catch (Exception e) {
-            log.error("Error al crear CentroFormacion");
-            e.getStackTrace();
-            throw new InternalException("Error al crear CentroFormacion");
+            log.error("Error al crear Centro de Formacion", e);
+            throw new InternalException("Error al crear Centro de Formacion");
         }
 
-        return dtoConverter.convertToDto(centroCreado, CentroFormacionDTO.class);
+        
     }
 
 
@@ -66,22 +65,17 @@ public class CentroFormacionServiceImpl implements ICentroFormacionService {
 
         log.info("Inicio del método CentroFormacionServiceImpl.findAllCentros");
 
-        List<CentroFormacionDTO> centros;
-
         try {
-            centros = centroFormacionDao.findAll()
-                .stream()
+            return centroFormacionDao.findAll().stream()
                 .map(centroFormacion -> dtoConverter.convertToDto(centroFormacion, CentroFormacionDTO.class))
                 .collect(Collectors.toList());
 
         } catch (Exception e) {
-            log.error("Error al consultar los Centros de Formacion");
-            e.getStackTrace();
+            log.error("Error al consultar los Centros de Formacion", e);
             throw new InternalException("Error al consultar los Centros de Formacion");
 
         }
-        log.info("Consultar Centros de Formación realizado correctamente");
-        return centros;
+
     }
 
 
@@ -91,26 +85,20 @@ public class CentroFormacionServiceImpl implements ICentroFormacionService {
 
         log.info("Inicio del método CentroFormacionServiceImpl.findCentroById");
 
-        Optional<CentroFormacion> centroBuscado;
-
         try {
-            centroBuscado = centroFormacionDao.findById(id);
+            CentroFormacion centroFormacion = centroFormacionDao.findById(id)
+                .orElseThrow(() -> {
+                    log.error("Centro de formación no encontrado");
+                    return new IllegalArgumentException("Centro de formación no encontrado");
+                });
 
-            if(centroBuscado.isPresent()) {
-                log.info("Centro de Formación encontrado");
-                
-            }else{
-                log.error("Error al consultar centro de formación");
-                throw new IllegalArgumentException("Centro de formación no encontrado");
-            }
+            log.info("Centro de Formación encontrado");
+            return dtoConverter.convertToDto(centroFormacion, CentroFormacionDTO.class);
+
         } catch (Exception e) {
-            log.error("Centro de formación no encontrado");
-            e.getStackTrace();
+            log.error("Error al consultar Centro de Formación", e);
             throw new InternalException("Error al consultar Centro de Formación");
-
         }
-
-        return dtoConverter.convertToDto(centroBuscado.get(), CentroFormacionDTO.class); 
     }
     
 
@@ -171,8 +159,7 @@ public class CentroFormacionServiceImpl implements ICentroFormacionService {
             centroFormacionDao.deleteById(id);
             log.info ("Centro de formación eliminado correctamente");
         }catch (Exception e) {
-            log.error ("Error al intentar eliminar el centro de formacion");
-            e.getStackTrace();
+            log.error ("Error al intentar eliminar el centro de formacion", e);
             throw new InternalException ("Error al intentar eliminar el centro de formación");
         }
         
